@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Minihry a gameplay systémy hry Gold Trail Tycoon.">
+  <meta name="theme-color" content="#20150f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gold Trail Tycoon | Minihry a gameplay systémy">
+  <meta property="og:description" content="Prehľad minihier, stretnutí a gameplay systémov pre Gold Trail Tycoon.">
+  <meta property="og:image" content="img/combat-system.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="./">
+  <title>Gold Trail Tycoon | Minihry a gameplay systémy</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="home">
+  <div class="site-shell">
+    <aside class="wiki-sidebar" id="wikiSidebar">
+      <div class="sidebar-brand">
+        <a href="index.html" class="brand-mark" aria-label="Domov Gold Trail Tycoon">
+          <span class="brand-star">✦</span>
+          <span><strong>GOLD TRAIL</strong><small>TYCOON WIKI</small></span>
+        </a>
+      </div>
+      <div id="sidebarNav"></div>
+    </aside>
+
+    <main class="page-content">
+      <nav class="topbar navbar navbar-expand-lg" aria-label="Hlavná navigácia">
+        <div class="container-fluid px-0">
+          <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-label="Otvoriť navigáciu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="topbar-path"><span class="path-dot"></span> KATALÓG</div>
+          <div class="topbar-actions ms-auto">
+            <a href="downloads/Gold_Trail_Tycoon_Minigames.md" download class="topbar-download">Stiahnuť dokument <span>↓</span></a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="hero container-fluid px-0">
+        <div class="hero-copy">
+          <p class="eyebrow">GOLD TRAIL TYCOON</p>
+          <h1>Minihry <span>&amp;</span><br>Gameplay systémy</h1>
+          <p class="hero-lead">Prehľad minihier, stretnutí a gameplay systémov pre Gold Trail Tycoon.</p>
+        </div>
+      </section>
+
+      <section class="catalog-section container-fluid px-0" id="catalog">
+        <div class="section-heading-row">
+          <div><p class="eyebrow">KATALÓG</p><h2>Prehľad systémov</h2></div>
+          <span class="section-count" id="resultCount"></span>
+        </div>
+        <div class="catalog-toolbar">
+          <div class="search-wrap"><span class="search-icon" aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Hľadať minihry, lokácie, ovládanie..." aria-label="Hľadať v katalógu"></div>
+          <div class="filter-wrap" role="group" aria-label="Filtrovať podľa typu obsahu">
+            <button class="filter-btn active" data-filter="all" aria-pressed="true">Všetky</button>
+            <button class="filter-btn" data-filter="minigame" aria-pressed="false">Minihry</button>
+            <button class="filter-btn" data-filter="resource" aria-pressed="false">Zdroje</button>
+            <button class="filter-btn" data-filter="encounter" aria-pressed="false">Stretnutia</button>
+            <button class="filter-btn" data-filter="system" aria-pressed="false">Hlavné systémy</button>
+          </div>
+        </div>
+        <div class="row g-4" id="gameGrid" aria-live="polite"></div>
+        <div class="empty-state d-none" id="emptyState"><span>✦</span><h3>Nenašla sa žiadna stopa</h3><p>Skúste iný výraz alebo zrušte filter kategórie.</p></div>
+      </section>
+
+      <section class="download-panel container-fluid px-0" id="downloads">
+        <div class="download-copy"><p class="eyebrow">SÚBORY</p><h2>Dokumenty</h2><p>Stiahnite si podklady k minihrám a gameplay systémom.</p></div>
+        <div class="download-links">
+          <a class="download-card" href="downloads/Gold_Trail_Tycoon_Minigames.docx" download><span class="file-icon">W</span><span><strong>DOCX</strong><small>Upraviteľný dokument</small></span><b>↓</b></a>
+          <a class="download-card" href="downloads/Gold_Trail_Tycoon_Minigames.md" download><span class="file-icon">M</span><span><strong>MARKDOWN</strong><small>Zdrojový text</small></span><b>↓</b></a>
+          <a class="download-card" href="downloads/Gold_Trail_Tycoon_Minigames.pdf" download><span class="file-icon">P</span><span><strong>PDF</strong><small>Export na kontrolu</small></span><b>↓</b></a>
+        </div>
+      </section>
+
+      <footer class="site-footer"><span>GOLD TRAIL TYCOON</span><span>MINIHRY &amp; GAMEPLAY SYSTÉMY</span></footer>
+    </main>
+  </div>
+
+  <div class="offcanvas offcanvas-start mobile-nav" tabindex="-1" id="mobileNav" aria-labelledby="mobileNavLabel">
+    <div class="offcanvas-header"><h5 id="mobileNavLabel">GOLD TRAIL WIKI</h5><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Zavrieť"></button></div>
+    <div class="offcanvas-body" id="mobileNavBody"></div>
+  </div>
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Späť hore">↑</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

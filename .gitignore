@@ -1,0 +1,10 @@
+# Generated QA renders and local inspection artifacts
+qa/
+
+# Python bytecode/cache
+__pycache__/
+*.py[cod]
+
+# Local tooling noise
+.DS_Store
+Thumbs.db
