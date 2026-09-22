@@ -21,24 +21,24 @@ const GAME_DATA = [
 ];
 
 const GAMEPLAY_SHORT = {
-  'western-dice': 'Vyberieš si, či chceš staviť na LOW (súčet dvoch kociek 2–6), SEVEN (presne 7) alebo HIGH (8–12), a potom hodíš dvoma kockami.',
-  archery: 'Prstom mieriš a po pustení vystrelíš. Alternatívne mieriš gyroskopom a natiahnutím prsta zhora nadol ovládaš silu strely. Výstrel môže sprevádzať vibrácia.',
-  'knife-throwing': 'Swipe dopredu alebo do strán na terč.',
-  'safe-cracking': 'Posúvaš zámok doľava a doprava. Správny smer naznačuje vibrácia mobilu a zvuk.',
-  'quick-draw': 'Swipe v správnom okamihu.',
-  'revolver-shooting': 'Mieriš gyroskopom a ťuknutím alebo swipe gestom vystrelíš. Môžeš tiež banditu zastrašiť.',
-  'wanted-poster': 'Občas sa zobrazí plagát s hľadaným banditom. Počas prieskumu môžeš na mape stretnúť cudzinca: rozhodneš sa, či ho necháš tak, alebo ho nahlásiš šerifovi. Za správne označenie získaš odmenu; za nesprávne môže prísť trest. Ak je cudzinec bandita a necháš ho odísť, môže spôsobiť škodu.',
-  'gold-panning': 'Nakláňaš telefón zo strany na stranu a prstom šúchaš po panvici, aby si získal zlato.',
-  fishing: 'Hodíš udicu, v správnom okamihu zasekneš rybu swipe gestom a potom ju ťaháš navíjaním alebo podržaním.',
-  'dynamite-mining': 'Umiestni dynamit do správneho krúžku.',
-  horseshoe: 'Podkova dopadne do diaľky podľa toho, aký swipe urobíš.',
-  lasso: 'V štýle Pokémon GO roztočíš laso a swipe gestom ho hodíš na zviera.',
-  'horse-riding': '2D jazda v štýle Subway Surfers: kôň cvála dopredu a ty sa vyhýbaš prekážkam pohybom do strán.',
-  'train-loading': 'Príde vlak a ty musíš v časovom limite naložiť tovar do správnych vagónov.',
-  combat: 'Pred misiou si vyberieš 3–5 postáv. Počas súboja obe strany útočia automaticky a ty načasovaným ťuknutím posilňuješ vlastný útok alebo zmierňuješ nepriateľský. Postavy majú rozdielne útoky a špeciálne schopnosti; ich meter sa postupne nabíja a schopnosť aktivuješ manuálne. Boj pokračuje, kým jedna strana neporazí všetkých súperov.',
-  expeditions: 'Vyberieš posádku a dopravný prostriedok — loď, vlak alebo koč — na výpravu za predajom surovín. Vopred uvidíš šancu na úspech. Posádka sa môže vrátiť s peniazmi alebo môže výprava skončiť jej stratou.',
-  'trading-post': 'Pri stánku alebo pri príchode obchodného koča môžeš obchodovať so surovinami.',
-  'living-conditions': 'Plánuješ výstavbu a rozmiestnenie budov. Napríklad políciu umiestniš blízko kostola a továrne ďalej od obydlí. Zlé rozloženie môže spomaliť rast populácie a znížiť spokojnosť obyvateľov.'
+  'western-dice': 'Vyberieš si, či chceš staviť pri hode 2 kociek, či padnú čísla 2–6, čiže low, seven, čo je stávka, že súčet dvoch bude 7, alebo padnú čísla high 8–12.',
+  archery: 'Posúvaš prstom, kam mieriš, a keď pustíš prst, tak vystrelíš / alebo mieriš gyroskopom a natiahnutím zhora dole ovládaš silu strely – pridať vibrácie.',
+  'knife-throwing': 'Swipe dopredu/do strán na terč.',
+  'safe-cracking': 'Posúvaš zámok doľava/doprava a či ideš správne, určuje vibrovanie mobilu a zvuk.',
+  'quick-draw': 'Swipe na čas.',
+  'revolver-shooting': 'Mieriš gyroskopom a ťuknutím alebo swipom vystrelíš, alebo zatrasením.',
+  'wanted-poster': 'Raz za čas sa ti zobrazí plagát, že je nejaký bandita hľadaný. Na mape občas počas exploringu narazíš na cudzinca a musíš vybrať, či ho necháš tak (nič sa ti nestane alebo ak je bandita, môže spôsobiť škodu), alebo ho nahlásiť šerifovi a keď si ho dobre nahlásil, tak máš odmenu, a keď ho označíš nesprávne, môžeš mať trest.',
+  'gold-panning': 'Posúvaš telefónom do strán a šúchaš prstom, aby si získal zlato.',
+  fishing: 'Hodíš udicu, swipneš na správny moment, ťaháš/držíš.',
+  'dynamite-mining': 'Treba umiestniť dynamit do správneho krúžku.',
+  horseshoe: 'Podkova padne do diaľky podľa toho, aký swipe si dal.',
+  lasso: 'Niečo ako Pokemon GO, kde točíš s lasom a hodíš na zviera swipom.',
+  'horse-riding': '2D Subway Surfer.',
+  'train-loading': 'Príde vlak a na čas musíš naložiť tovar do správnych vagónov.',
+  combat: 'Pred misiou si vyberieš crew (typicky 3–5 postáv) a počas combat encounteru by stáli tvoji na jednej strane a nepriatelia na druhej. Základné útoky tvojich postáv aj nepriateľov by prebiehali automaticky. Tvojou hlavnou interakciou by bol timing — pri útoku by sa zobrazil kruh/indikátor a správne načasovaný tap by spôsobil critical hit; pri útoku nepriateľa by si podobným tapom mohol znížiť prijaté damage. Postavy by navyše mali special ability, ktorej meter by sa postupne napĺňal, a tú by si už aktivoval manuálne. Útoky by sa líšili podľa postavy: napr. niekto by mal single-target útok a niekto by mohol poškodiť viac nepriateľov. Vyber crew → encounter → obe strany automaticky útočia → ty timingom posilňuješ útok/obranu → používaš nabité special abilities → vyhrá strana, ktorá zlikviduje protivníkov.',
+  expeditions: 'Vyberieš crew na expedíciu na loď/vlak/koč, kde pôjdu predať suroviny, zobrazia sa ti %, aká je šanca, že misia dopadne úspešne a vrátia sa naspäť s peniazmi, alebo tam zomrú.',
+  'trading-post': 'Bude sa ti zobrazovať stánok alebo občas príde koč, kde môžeš tradovať suroviny.',
+  'living-conditions': 'Bude to nútiť hráča premýšľať, aby plánoval výstavbu budov a nedával ju random. Aby napr. polícia bola blízko kostola a továrne boli ďalej od ľudí a spolu atď. Keby bolo rozmiestnenie horšie, tak by sa obyvateľstvo pomalšie rozširovalo a bolo nespokojné atď.'
 };
 
 const NAV_GROUPS = [

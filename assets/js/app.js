@@ -49,7 +49,7 @@
         if (!value) return;
         lines.push(`### ${label}`, '', markdownText(value), '');
       });
-      if (GAMEPLAY_SHORT[game.id]) lines.push('### Gameplay stručne', '', markdownText(GAMEPLAY_SHORT[game.id]), '');
+      if (GAMEPLAY_SHORT[game.id]) lines.push('### Gameplay stručne:', '', `**${game.title}**`, markdownText(GAMEPLAY_SHORT[game.id]), '');
       if (game.loop?.length) lines.push('### Gameplay loop', '', ...game.loop.map((step, stepIndex) => `${stepIndex + 1}. ${step}`), '');
       const remainingSections = [
         ['Typy rýb', game.fishTypes],
@@ -237,7 +237,7 @@
       ${notFound ? '<div class="not-found-note" role="status"><strong>Systém sa nenašiel.</strong> Zobrazuje sa prvý systém z katalógu. <a href="index.html#catalog">Späť na všetky minihry</a></div>' : ''}
       <header class="article-header"><div><p class="eyebrow">${game.eyebrow}</p><h1>${game.title}</h1><p class="article-subtitle"><span class="location-pin">⌖</span> ${game.location} <i></i> ${game.type}</p></div><div class="article-index" aria-label="Položka ${index+1} z ${GAME_DATA.length}">${String(index+1).padStart(2,'0')} <span>/ ${String(GAME_DATA.length).padStart(2,'0')}</span></div></header>
       <div class="article-snapshot" aria-label="Rýchly prehľad"><div><span>KATEGÓRIA</span><strong>${kindLabel(game)}</strong></div><div><span>INTERAKCIA</span><strong>${escapeHtml((game.controls || game.type).split('→')[0].trim())}</strong></div><div><span>LOKÁCIA</span><strong>${game.location}</strong></div><div><span>STAV</span><strong><i class="status-dot"></i>${statusLabel(game)}</strong></div></div>
-      ${GAMEPLAY_SHORT[game.id] ? `<section id="section-gameplay-strucne" class="gameplay-intro"><h2>Gameplay stručne</h2><p>${escapeHtml(GAMEPLAY_SHORT[game.id])}</p></section>` : ''}
+      ${GAMEPLAY_SHORT[game.id] ? `<section id="section-gameplay-strucne" class="gameplay-intro"><h2>Gameplay stručne:</h2><p><strong>${escapeHtml(game.title)}</strong><br>${escapeHtml(GAMEPLAY_SHORT[game.id])}</p></section>` : ''}
       ${game.id === 'horse-riding' ? '<div class="game-demo-launcher"><button class="game-demo-toggle" type="button" aria-expanded="false" aria-controls="horseDemoPanel">Vyskúšať hrateľnú ukážku</button><div class="game-demo-panel" id="horseDemoPanel" hidden><div class="horse-game-shell" aria-label="Horse Riding Challenge"><div id="horseRidingGame"></div></div></div></div>' : `<div class="game-demo-launcher" data-demo-id="${game.id}"><button class="game-demo-toggle" type="button" aria-expanded="false" aria-controls="demoPanel-${game.id}">Vyskúšať hrateľnú ukážku</button><div class="game-demo-panel" id="demoPanel-${game.id}" hidden><div class="mini-demo-shell"><div class="mini-demo-root" id="miniDemo-${game.id}"></div></div></div></div>`}
       <button class="article-hero" type="button" data-image="${game.image}" data-title="${escapeHtml(game.title)}" aria-label="Zväčšiť obrázok: ${escapeHtml(game.title)}"><img src="${game.image}" alt="${escapeHtml(game.title)} – koncept art" decoding="async" fetchpriority="high"><span class="zoom-hint">KLIKNÚŤ PRE ZVÄČŠENIE <b>↗</b></span></button>
       ${detailToc(game)}
