@@ -10,6 +10,77 @@
   const searchableText = (game) => JSON.stringify(game).replace(/<[^>]+>/g, ' ').toLowerCase();
   const pluralResults = (count) => count === 1 ? 'VÝSLEDOK' : count >= 2 && count <= 4 ? 'VÝSLEDKY' : 'VÝSLEDKOV';
 
+  function markdownText(value) {
+    return String(value)
+      .replace(/<strong>(.*?)<\/strong>/gi, '**$1**')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/p>/gi, '\n\n')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
+      .trim();
+  }
+
+  function liveMarkdown() {
+    const lines = [
+      '# Gold Trail Tycoon – Minihry a gameplay systémy',
+      '',
+      '> Tento súbor sa generuje z aktuálnych dát stránky pri stiahnutí.',
+      '',
+      `Počet položiek: ${GAME_DATA.length}`,
+      ''
+    ];
+    let group = '';
+    GAME_DATA.forEach((game, index) => {
+      if (game.group !== group) {
+        group = game.group;
+        lines.push(`# ${group}`, '');
+      }
+      lines.push(`## ${index + 1}. ${game.title}`, '', `**Kategória:** ${kindLabel(game)}  `, `**Lokácia:** ${game.location}  `, `**Typ:** ${game.type}  `, `**Stav:** ${statusLabel(game)}`, '');
+      if (game.description) lines.push(game.description, '');
+      const sections = [
+        ['Prehľad', game.overview],
+        ['Prepojenie so systémom', game.connection],
+        ['Kedy', game.when],
+        ['Ako to funguje', game.how],
+        ['Ovládanie', game.controls]
+      ];
+      sections.forEach(([label, value]) => {
+        if (!value) return;
+        lines.push(`### ${label}`, '', markdownText(value), '');
+      });
+      if (game.loop?.length) lines.push('### Gameplay loop', '', ...game.loop.map((step, stepIndex) => `${stepIndex + 1}. ${step}`), '');
+      const remainingSections = [
+        ['Typy rýb', game.fishTypes],
+        ['Návnada', game.bait],
+        ['Prečo to dáva zmysel', game.why],
+        ['Budúce rozšírenia', game.future]
+      ];
+      remainingSections.forEach(([label, value]) => {
+        if (!value) return;
+        lines.push(`### ${label}`, '', markdownText(value), '');
+      });
+      if (game.image) lines.push(`![Koncept art – ${game.title}](${new URL(game.image, location.href).href})`, '');
+      if (game.gallery?.length) {
+        lines.push('### Galéria', '');
+        game.gallery.forEach((image, imageIndex) => lines.push(`![${game.title} – obrázok ${imageIndex + 1}](${new URL(image, location.href).href})`));
+        lines.push('');
+      }
+      lines.push('---', '');
+    });
+    return lines.join('\n');
+  }
+
+  function mountLiveDownloads() {
+    const markdown = liveMarkdown();
+    const url = URL.createObjectURL(new Blob([markdown], {type: 'text/markdown;charset=utf-8'}));
+    document.querySelectorAll('[data-live-download]').forEach((link) => {
+      link.href = url;
+      link.download = 'Gold_Trail_Tycoon_Aktualny_obsah.md';
+      link.setAttribute('aria-label', 'Stiahnuť aktuálny obsah stránky vo formáte Markdown');
+    });
+  }
+
   function navMarkup() {
     const current = new URLSearchParams(location.search).get('id');
     return NAV_GROUPS.map((group) => `<section class="nav-group"><h6>${group.label}</h6>${group.items.map((item) => {
@@ -154,7 +225,7 @@
       <div class="article-snapshot" aria-label="Rýchly prehľad"><div><span>KATEGÓRIA</span><strong>${kindLabel(game)}</strong></div><div><span>INTERAKCIA</span><strong>${escapeHtml((game.controls || game.type).split('→')[0].trim())}</strong></div><div><span>LOKÁCIA</span><strong>${game.location}</strong></div><div><span>STAV</span><strong><i class="status-dot"></i>${statusLabel(game)}</strong></div></div>
       <button class="article-hero" type="button" data-image="${game.image}" data-title="${escapeHtml(game.title)}" aria-label="Zväčšiť obrázok: ${escapeHtml(game.title)}"><img src="${game.image}" alt="${escapeHtml(game.title)} – koncept art" decoding="async" fetchpriority="high"><span class="zoom-hint">KLIKNÚŤ PRE ZVÄČŠENIE <b>↗</b></span></button>
       ${detailToc(game)}
-      <div class="article-layout"><div class="article-main">${details}</div><aside class="article-rail"><div class="rail-card"><span class="rail-label">ZÁKLADNÉ ÚDAJE</span><dl><div><dt>LOKÁCIA</dt><dd>${game.location}</dd></div><div><dt>TYP</dt><dd>${game.type}</dd></div><div><dt>STAV</dt><dd><span class="status-dot"></span> ${statusLabel(game)}</dd></div></dl></div><a class="rail-source" href="downloads/Gold_Trail_Tycoon_Minigames.md" download><span>↘</span><div><strong>STIAHNUŤ MARKDOWN</strong><small>Zdrojový dokument</small></div></a></aside></div>
+      <div class="article-layout"><div class="article-main">${details}</div><aside class="article-rail"><div class="rail-card"><span class="rail-label">ZÁKLADNÉ ÚDAJE</span><dl><div><dt>LOKÁCIA</dt><dd>${game.location}</dd></div><div><dt>TYP</dt><dd>${game.type}</dd></div><div><dt>STAV</dt><dd><span class="status-dot"></span> ${statusLabel(game)}</dd></div></dl></div><a class="rail-source" href="#" data-live-download><span>↘</span><div><strong>STIAHNUŤ AKTUÁLNY MARKDOWN</strong><small>Export z dát stránky</small></div></a></aside></div>
       ${gallery}
       <nav class="article-nav" aria-label="Navigácia medzi systémami"><a href="game.html?id=${previous.id}"><small>← PREDCHÁDZAJÚCI</small><strong>${previous.title}</strong></a><a href="index.html#catalog" class="all-systems">VŠETKY SYSTÉMY <span>✦</span></a><a href="game.html?id=${next.id}" class="next"><small>ĎALŠÍ →</small><strong>${next.title}</strong></a></nav>`;
     const hero = document.querySelector('.article-hero');
@@ -168,5 +239,6 @@
   function mountBackToTop() { const button = byId('backToTop'); if (!button) return; window.addEventListener('scroll', () => button.classList.toggle('show', window.scrollY > 500)); button.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'})); }
   mountNav();
   if (document.body.dataset.page === 'home') renderHome(); else renderDetail();
+  mountLiveDownloads();
   mountBackToTop();
 })();

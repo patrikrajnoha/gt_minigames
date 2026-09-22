@@ -33,6 +33,10 @@ Umiestnite obrázok do priečinka `img/` a jeho cestu nastavte v príslušnom po
 
 Pridajte do `GAME_DATA` objekt s jedinečným `id`, názvom, lokáciou, typom, kategóriou, obrázkom a obsahom sekcií. Jeho `id` pridajte do príslušnej skupiny v `NAV_GROUPS`. Renderer automaticky vytvorí kartu, detailnú stránku, breadcrumbs a odkazy na predchádzajúci/ďalší systém.
 
+## Stiahnutie aktuálneho obsahu
+
+Odkazy na stránke vytvárajú Markdown export priamo z `GAME_DATA` v `assets/js/data.js`, ktorý používa aj renderer stránky. Po úprave obsahu preto nie je potrebné ručne aktualizovať samostatný dokument. Staršie súbory v `downloads/` nie sú používané odkazmi na stránke.
+
 ## Štruktúra projektu
 
 ```text
@@ -43,5 +47,5 @@ assets/js/data.js          dáta minihier a navigačné skupiny
 assets/js/app.js           renderer katalógu a článku
 img/                       concept art obrázky
 img/thumbs/                optimalizované náhľady pre katalóg
-downloads/                 stiahnuteľné zdrojové dokumenty
+downloads/                 staršie exporty, stránka ich už nepoužíva
 ```
