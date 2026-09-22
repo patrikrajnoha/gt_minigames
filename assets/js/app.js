@@ -200,6 +200,19 @@
     const index = GAME_DATA.indexOf(game);
     const previous = GAME_DATA[(index - 1 + GAME_DATA.length) % GAME_DATA.length];
     const next = GAME_DATA[(index + 1) % GAME_DATA.length];
+    const navigateWithArrows = (event) => {
+      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        location.href = `game.html?id=${previous.id}`;
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        location.href = `game.html?id=${next.id}`;
+      }
+    };
+    window.addEventListener('keydown', navigateWithArrows);
      document.title = `Gold Trail Tycoon | ${game.title}`;
      byId('crumbTitle').textContent = game.title.toUpperCase();
      document.querySelector('meta[name="description"]')?.setAttribute('content', game.description);
