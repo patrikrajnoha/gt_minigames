@@ -223,7 +223,7 @@
       ${notFound ? '<div class="not-found-note" role="status"><strong>Systém sa nenašiel.</strong> Zobrazuje sa prvý systém z katalógu. <a href="index.html#catalog">Späť na všetky minihry</a></div>' : ''}
       <header class="article-header"><div><p class="eyebrow">${game.eyebrow}</p><h1>${game.title}</h1><p class="article-subtitle"><span class="location-pin">⌖</span> ${game.location} <i></i> ${game.type}</p></div><div class="article-index" aria-label="Položka ${index+1} z ${GAME_DATA.length}">${String(index+1).padStart(2,'0')} <span>/ ${String(GAME_DATA.length).padStart(2,'0')}</span></div></header>
       <div class="article-snapshot" aria-label="Rýchly prehľad"><div><span>KATEGÓRIA</span><strong>${kindLabel(game)}</strong></div><div><span>INTERAKCIA</span><strong>${escapeHtml((game.controls || game.type).split('→')[0].trim())}</strong></div><div><span>LOKÁCIA</span><strong>${game.location}</strong></div><div><span>STAV</span><strong><i class="status-dot"></i>${statusLabel(game)}</strong></div></div>
-      ${game.id === 'horse-riding' ? '<details class="horse-game-launcher"><summary><span><strong>SPUSTIŤ MINIHRU</strong><small>Otvoriť Horse Riding Challenge</small></span><b aria-hidden="true">＋</b></summary><div class="horse-game-shell" aria-label="Horse Riding Challenge"><div id="horseRidingGame"></div></div></details>' : ''}
+      ${game.id === 'horse-riding' ? '<details class="horse-game-launcher"><summary><span><strong>SPUSTIŤ MINIHRU</strong><small>Otvoriť Horse Riding Challenge</small></span><b aria-hidden="true">＋</b></summary><div class="horse-game-shell" aria-label="Horse Riding Challenge"><div id="horseRidingGame"></div></div></details>' : `<details class="mini-demo-launcher" data-demo-id="${game.id}"><summary><span><strong>VYSKÚŠAŤ HRATEĽNÚ UKÁŽKU</strong><small>${escapeHtml(game.title)} · krátka interaktívna verzia</small></span><b aria-hidden="true">＋</b></summary><div class="mini-demo-shell"><div class="mini-demo-root" id="miniDemo-${game.id}"></div></div></details>`}
       <button class="article-hero" type="button" data-image="${game.image}" data-title="${escapeHtml(game.title)}" aria-label="Zväčšiť obrázok: ${escapeHtml(game.title)}"><img src="${game.image}" alt="${escapeHtml(game.title)} – koncept art" decoding="async" fetchpriority="high"><span class="zoom-hint">KLIKNÚŤ PRE ZVÄČŠENIE <b>↗</b></span></button>
       ${detailToc(game)}
       <div class="article-layout"><div class="article-main">${details}</div><aside class="article-rail"><div class="rail-card"><span class="rail-label">ZÁKLADNÉ ÚDAJE</span><dl><div><dt>LOKÁCIA</dt><dd>${game.location}</dd></div><div><dt>TYP</dt><dd>${game.type}</dd></div><div><dt>STAV</dt><dd><span class="status-dot"></span> ${statusLabel(game)}</dd></div></dl></div><a class="rail-source" href="#" data-live-download><span>↘</span><div><strong>STIAHNUŤ AKTUÁLNY MARKDOWN</strong><small>Export z dát stránky</small></div></a></aside></div>
@@ -237,6 +237,14 @@
     if (game.id === 'horse-riding') {
       const launcher = root.querySelector('.horse-game-launcher');
       launcher?.addEventListener('toggle', () => { if (launcher.open) window.HorseRidingGame?.mount(byId('horseRidingGame')); });
+    } else {
+      const launcher = root.querySelector('.mini-demo-launcher');
+      launcher?.addEventListener('toggle', () => {
+        if (launcher.open && !launcher.dataset.mounted) {
+          window.GameplayDemos?.mount(byId(`miniDemo-${game.id}`), game.id);
+          launcher.dataset.mounted = 'true';
+        }
+      });
     }
     mountNav();
   }
