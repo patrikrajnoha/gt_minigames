@@ -49,6 +49,7 @@
         if (!value) return;
         lines.push(`### ${label}`, '', markdownText(value), '');
       });
+      if (GAMEPLAY_SHORT[game.id]) lines.push('### Gameplay stručne', '', markdownText(GAMEPLAY_SHORT[game.id]), '');
       if (game.loop?.length) lines.push('### Gameplay loop', '', ...game.loop.map((step, stepIndex) => `${stepIndex + 1}. ${step}`), '');
       const remainingSections = [
         ['Typy rýb', game.fishTypes],
@@ -143,8 +144,8 @@
   }
 
   function detailToc(game) {
-    const items = ['overview','connection','when','how','controls','loop','fishTypes','bait','why','future'].filter((key) => game[key]);
-    const labels = {overview:'Prehľad', connection:'Prepojenie', when:'Kedy', how:'Ako to funguje', controls:'Ovládanie', loop:'Gameplay loop', fishTypes:'Typy rýb', bait:'Návnada', why:'Prečo to dáva zmysel', future:'Budúce rozšírenia'};
+    const items = ['overview','gameplay','connection','when','how','controls','loop','fishTypes','bait','why','future'].filter((key) => key === 'gameplay' ? GAMEPLAY_SHORT[game.id] : game[key]);
+    const labels = {overview:'Prehľad', gameplay:'Gameplay stručne', connection:'Prepojenie', when:'Kedy', how:'Ako to funguje', controls:'Ovládanie', loop:'Gameplay loop', fishTypes:'Typy rýb', bait:'Návnada', why:'Prečo to dáva zmysel', future:'Budúce rozšírenia'};
     return `<nav class="article-toc" aria-label="Obsah detailu"><span>NA STRÁNKE</span>${items.map((key) => `<a href="#section-${slugify(labels[key])}">${labels[key]}</a>`).join('')}</nav>`;
   }
 
@@ -207,6 +208,7 @@
      document.querySelector('meta[property="og:image"]')?.setAttribute('content', game.image);
     const details = [
       game.overview && sectionMarkup('Prehľad', `<p>${game.overview}</p>`),
+      GAMEPLAY_SHORT[game.id] && sectionMarkup('Gameplay stručne', `<p>${escapeHtml(GAMEPLAY_SHORT[game.id])}</p>`),
       sectionMarkup('Kde', `<p>${game.location}</p>`),
       game.connection && sectionMarkup('Prepojenie so systémom', `<p>${game.connection}</p>`),
       game.when && sectionMarkup('Kedy', `<p>${game.when}</p>`),

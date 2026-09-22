@@ -20,6 +20,27 @@ const GAME_DATA = [
   { id:'living-conditions', title:'Znečistenie & Living Conditions', navTitle:'Znečistenie & Living Conditions', location:'Hlavná osada / Mapa', group:'Hlavné systémy', type:'Hlavný gameplay systém', status:'NAVRHNUTÝ SYSTÉM', category:'system', image:'img/pollution-living-conditions.png', eyebrow:'Hlavný systém', description:'Systém, v ktorom rozmiestnenie budov ovplyvňuje znečistenie, životné podmienky a rast mesta.', when:'Po odomknutí základných obytných a výrobných budov, keď hráč začne plánovať rozloženie osady.', overview:'Rozmiestnenie budov nie je iba estetické. Priamo ovplyvňuje fungovanie mesta a vytvára jednoduchú vrstvu urban planningu. Budovy môžu mať pozitívny alebo negatívny vplyv na svoje okolie.', how:'Výrobné budovy, napríklad Factory, Mine a Foundry, môžu znižovať Living Conditions v okolí. To môže negatívne ovplyvniť rast populácie, spokojnosť, hodnotu pozemkov a ďalšie štatistiky mesta. Church, Sheriff / Police, Park a Services môžu životné podmienky alebo atraktivitu okolitého územia zvyšovať. Samostatné zobrazenie POLLUTION / LIVING CONDITIONS VIEW ukáže vplyv budov na okolité políčka.', controls:'OTVORIŤ MAPU → AKTIVOVAŤ POLLUTION / LIVING CONDITIONS VIEW → SKONTROLOVAŤ OKOLIE → UPRAVIŤ ROZLOŽENIE MESTA', loop:['POSTAVIŤ BUDOVU','OVPLYVNIŤ OKOLIE','ZMENIŤ LIVING CONDITIONS','SKONTROLOVAŤ OVERLAY','UPRAVIŤ ROZLOŽENIE MESTA'], why:'Systém prirodzene motivuje hráča vytvárať rozdielne časti mesta: INDUSTRIAL ZONE pre Factories / Mines / Production a RESIDENTIAL ZONE pre Homes / Church / Services. Ak chce maximalizovať rast populácie a kvalitu obytných oblastí, musí premýšľať, kam umiestni priemyselné budovy.', future:'Neskôr sa môže pridať smer vetra. Wind System by spôsobil, že znečistenie sa nebude šíriť rovnomerne do všetkých strán, ale podľa aktuálneho smeru vetra, čo vytvorí ďalšiu vrstvu rozhodovania pri umiestňovaní priemyselných budov.', wide:true }
 ];
 
+const GAMEPLAY_SHORT = {
+  'western-dice': 'Vyberieš si, či chceš staviť na LOW (súčet dvoch kociek 2–6), SEVEN (presne 7) alebo HIGH (8–12), a potom hodíš dvoma kockami.',
+  archery: 'Prstom mieriš a po pustení vystrelíš. Alternatívne mieriš gyroskopom a natiahnutím prsta zhora nadol ovládaš silu strely. Výstrel môže sprevádzať vibrácia.',
+  'knife-throwing': 'Swipe dopredu alebo do strán na terč.',
+  'safe-cracking': 'Posúvaš zámok doľava a doprava. Správny smer naznačuje vibrácia mobilu a zvuk.',
+  'quick-draw': 'Swipe v správnom okamihu.',
+  'revolver-shooting': 'Mieriš gyroskopom a ťuknutím alebo swipe gestom vystrelíš. Môžeš tiež banditu zastrašiť.',
+  'wanted-poster': 'Občas sa zobrazí plagát s hľadaným banditom. Počas prieskumu môžeš na mape stretnúť cudzinca: rozhodneš sa, či ho necháš tak, alebo ho nahlásiš šerifovi. Za správne označenie získaš odmenu; za nesprávne môže prísť trest. Ak je cudzinec bandita a necháš ho odísť, môže spôsobiť škodu.',
+  'gold-panning': 'Nakláňaš telefón zo strany na stranu a prstom šúchaš po panvici, aby si získal zlato.',
+  fishing: 'Hodíš udicu, v správnom okamihu zasekneš rybu swipe gestom a potom ju ťaháš navíjaním alebo podržaním.',
+  'dynamite-mining': 'Umiestni dynamit do správneho krúžku.',
+  horseshoe: 'Podkova dopadne do diaľky podľa toho, aký swipe urobíš.',
+  lasso: 'V štýle Pokémon GO roztočíš laso a swipe gestom ho hodíš na zviera.',
+  'horse-riding': '2D jazda v štýle Subway Surfers: kôň cvála dopredu a ty sa vyhýbaš prekážkam pohybom do strán.',
+  'train-loading': 'Príde vlak a ty musíš v časovom limite naložiť tovar do správnych vagónov.',
+  combat: 'Pred misiou si vyberieš 3–5 postáv. Počas súboja obe strany útočia automaticky a ty načasovaným ťuknutím posilňuješ vlastný útok alebo zmierňuješ nepriateľský. Postavy majú rozdielne útoky a špeciálne schopnosti; ich meter sa postupne nabíja a schopnosť aktivuješ manuálne. Boj pokračuje, kým jedna strana neporazí všetkých súperov.',
+  expeditions: 'Vyberieš posádku a dopravný prostriedok — loď, vlak alebo koč — na výpravu za predajom surovín. Vopred uvidíš šancu na úspech. Posádka sa môže vrátiť s peniazmi alebo môže výprava skončiť jej stratou.',
+  'trading-post': 'Pri stánku alebo pri príchode obchodného koča môžeš obchodovať so surovinami.',
+  'living-conditions': 'Plánuješ výstavbu a rozmiestnenie budov. Napríklad políciu umiestniš blízko kostola a továrne ďalej od obydlí. Zlé rozloženie môže spomaliť rast populácie a znížiť spokojnosť obyvateľov.'
+};
+
 const NAV_GROUPS = [
   {label:'Prehľad', items:[{label:'Domov', href:'index.html'},{label:'Všetky minihry', href:'index.html#catalog'}]},
   {label:'Saloon', items:[{id:'western-dice'}]},
