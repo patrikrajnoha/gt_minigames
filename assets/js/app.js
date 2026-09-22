@@ -103,7 +103,7 @@
     if (game.group === 'Zdroje') categories.push('resource');
     return `<div class="col-sm-6 col-xl-4 game-card-col" data-category="${categories.join(' ')}" data-search="${escapeHtml(searchableText(game))}">
       <a class="game-card ${game.wide ? 'system-card' : ''}" href="game.html?id=${game.id}">
-        <div class="card-image-wrap"><img src="${thumbFor(game.image)}" data-full-image="${game.image}" onerror="this.onerror=null;this.src='${escapeHtml(game.image)}'" alt="${escapeHtml(game.title)} – koncept art" loading="lazy" decoding="async"><span class="card-number">${String(GAME_DATA.indexOf(game)+1).padStart(2,'0')}</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+        <div class="card-image-wrap"><img src="${escapeHtml(game.thumbnail || thumbFor(game.image))}" data-full-image="${game.image}" onerror="this.onerror=null;this.src='${escapeHtml(game.image)}'" alt="${escapeHtml(game.title)} – koncept art" loading="lazy" decoding="async"><span class="card-number">${String(GAME_DATA.indexOf(game)+1).padStart(2,'0')}</span><span class="card-arrow" aria-hidden="true">↗</span></div>
         <div class="card-body"><div class="card-kicker"><span>${kindLabel(game)} · ${game.group}</span><span>${game.type}</span></div><h3>${game.title}</h3><p>${game.description}</p><span class="read-more">OTVORIŤ DETAIL <b>→</b></span></div>
       </a>
     </div>`;
@@ -223,6 +223,7 @@
       ${notFound ? '<div class="not-found-note" role="status"><strong>Systém sa nenašiel.</strong> Zobrazuje sa prvý systém z katalógu. <a href="index.html#catalog">Späť na všetky minihry</a></div>' : ''}
       <header class="article-header"><div><p class="eyebrow">${game.eyebrow}</p><h1>${game.title}</h1><p class="article-subtitle"><span class="location-pin">⌖</span> ${game.location} <i></i> ${game.type}</p></div><div class="article-index" aria-label="Položka ${index+1} z ${GAME_DATA.length}">${String(index+1).padStart(2,'0')} <span>/ ${String(GAME_DATA.length).padStart(2,'0')}</span></div></header>
       <div class="article-snapshot" aria-label="Rýchly prehľad"><div><span>KATEGÓRIA</span><strong>${kindLabel(game)}</strong></div><div><span>INTERAKCIA</span><strong>${escapeHtml((game.controls || game.type).split('→')[0].trim())}</strong></div><div><span>LOKÁCIA</span><strong>${game.location}</strong></div><div><span>STAV</span><strong><i class="status-dot"></i>${statusLabel(game)}</strong></div></div>
+      ${game.id === 'horse-riding' ? '<details class="horse-game-launcher"><summary><span><strong>SPUSTIŤ MINIHRU</strong><small>Otvoriť Horse Riding Challenge</small></span><b aria-hidden="true">＋</b></summary><div class="horse-game-shell" aria-label="Horse Riding Challenge"><div id="horseRidingGame"></div></div></details>' : ''}
       <button class="article-hero" type="button" data-image="${game.image}" data-title="${escapeHtml(game.title)}" aria-label="Zväčšiť obrázok: ${escapeHtml(game.title)}"><img src="${game.image}" alt="${escapeHtml(game.title)} – koncept art" decoding="async" fetchpriority="high"><span class="zoom-hint">KLIKNÚŤ PRE ZVÄČŠENIE <b>↗</b></span></button>
       ${detailToc(game)}
       <div class="article-layout"><div class="article-main">${details}</div><aside class="article-rail"><div class="rail-card"><span class="rail-label">ZÁKLADNÉ ÚDAJE</span><dl><div><dt>LOKÁCIA</dt><dd>${game.location}</dd></div><div><dt>TYP</dt><dd>${game.type}</dd></div><div><dt>STAV</dt><dd><span class="status-dot"></span> ${statusLabel(game)}</dd></div></dl></div><a class="rail-source" href="#" data-live-download><span>↘</span><div><strong>STIAHNUŤ AKTUÁLNY MARKDOWN</strong><small>Export z dát stránky</small></div></a></aside></div>
@@ -230,9 +231,13 @@
       <nav class="article-nav" aria-label="Navigácia medzi systémami"><a href="game.html?id=${previous.id}"><small>← PREDCHÁDZAJÚCI</small><strong>${previous.title}</strong></a><a href="index.html#catalog" class="all-systems">VŠETKY SYSTÉMY <span>✦</span></a><a href="game.html?id=${next.id}" class="next"><small>ĎALŠÍ →</small><strong>${next.title}</strong></a></nav>`;
     const hero = document.querySelector('.article-hero');
     const openImage = (image, title) => { byId('modalImage').src = image; byId('modalImage').alt = title; byId('imageModalLabel').textContent = title; bootstrap.Modal.getOrCreateInstance(byId('imageModal')).show(); };
-    hero.addEventListener('click', () => openImage(game.image, `${game.title} – koncept art`));
+    hero?.addEventListener('click', () => openImage(game.image, `${game.title} – koncept art`));
     document.querySelectorAll('.gallery-item').forEach((item) => item.addEventListener('click', () => openImage(item.dataset.image, `${game.title} – galéria`)));
     mountGalleryCarousels();
+    if (game.id === 'horse-riding') {
+      const launcher = root.querySelector('.horse-game-launcher');
+      launcher?.addEventListener('toggle', () => { if (launcher.open) window.HorseRidingGame?.mount(byId('horseRidingGame')); });
+    }
     mountNav();
   }
 
